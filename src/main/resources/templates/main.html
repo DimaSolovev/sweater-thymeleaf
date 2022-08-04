@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<div>
+    <form method="post">
+        <input type="text" name="text" placeholder="Введите сообщение"/>
+        <input type="text" name="tag" placeholder="Тэг"/>
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<div>Список сообщений</div>
+<div>
+    <form method="post" action="filter">
+        <input type="text" name="filter">
+        <button type="submit">Найти</button>
+    </form>
+</div>
+<table>
+    <!--/*@thymesVar id="messages" type="com.example.sweater.domain.Message"*/-->
+    <tr th:each="message : ${messages}">
+        <td th:text="${message.id}">1</td>
+        <td th:text="${message.text}">Joe</td>
+        <td th:text="${message.tag}">Buck</td>
+    </tr>
+</table>
+</body>
+</html>
