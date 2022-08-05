@@ -1,4 +1,4 @@
-package com.example.sweater;
+package com.example.sweater.controller;
 
 import com.example.sweater.domain.Message;
 import com.example.sweater.repos.MessageRepository;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping
-public class GreetingsController {
+public class MainController {
 
     @Autowired
     private MessageRepository messageRepository;
