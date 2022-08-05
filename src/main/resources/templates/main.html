@@ -27,9 +27,10 @@
 <table>
     <!--/*@thymesVar id="messages" type="com.example.sweater.domain.Message"*/-->
     <tr th:each="message : ${messages}">
-        <td th:text="${message.id}">1</td>
-        <td th:text="${message.text}">Joe</td>
-        <td th:text="${message.tag}">Buck</td>
+        <td th:text="${message.id}"></td>
+        <td th:text="${message.text}"></td>
+        <td th:text="${message.tag}"></td>
+        <td th:text="${message.authorName}"></td>
     </tr>
 </table>
 </body>
