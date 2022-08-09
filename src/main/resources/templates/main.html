@@ -18,20 +18,26 @@
     </form>
 </div>
 <div>Список сообщений</div>
-<div>
-    <form th:action="@{/filter}" method="post">
-        <input type="text" name="filter">
-        <button type="submit">Найти</button>
-    </form>
+<div th:if="${messages.isEmpty()}">
+    <div>No messages</div>
 </div>
-<table>
-    <!--/*@thymesVar id="messages" type="com.example.sweater.domain.Message"*/-->
-    <tr th:each="message : ${messages}">
-        <td th:text="${message.id}"></td>
-        <td th:text="${message.text}"></td>
-        <td th:text="${message.tag}"></td>
-        <td th:text="${message.authorName}"></td>
-    </tr>
-</table>
+<div th:if="${!messages.isEmpty()}">
+    <div>
+        <form th:action="@{/main}" method="get">
+            <input type="text" name="filter" th:value="${filter}">
+            <button type="submit">Найти</button>
+        </form>
+    </div>
+    <table>
+        <!--/*@thymesVar id="messages" type="com.example.sweater.domain.Message"*/-->
+        <tr th:each="message : ${messages}">
+            <td th:text="${message.id}"></td>
+            <td th:text="${message.text}"></td>
+            <td th:text="${message.tag}"></td>
+            <td th:text="${message.authorName}"></td>
+        </tr>
+    </table>
+</div>
+
 </body>
 </html>
