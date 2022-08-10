@@ -29,11 +29,9 @@ public class RegistrationController {
             model.addAttribute("message", "User exists!");
             return "registration";
         }
-
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userRepo.save(user);
         return "redirect:/login";
     }
-
 }

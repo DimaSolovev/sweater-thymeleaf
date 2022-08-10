@@ -42,7 +42,7 @@ public class MainController {
     }
 
     @PostMapping("/main")
-    public String add(
+    public String addMessage(
             @AuthenticationPrincipal User user,
             @RequestParam String text,
             @RequestParam String tag,
