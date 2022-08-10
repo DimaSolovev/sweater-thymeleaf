@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Users list</title>
+</head>
+<body>
+<div>List of users</div>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th></th>
+    </tr>
+    <!--/*@thymesVar id="users" type="com.example.sweater.domain.User"*/-->
+    <tr th:each="user : ${users}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.roles}"></td>
+        <td><a th:href="@{/user/{id}(id=${user.id})}">edit</a></td>
+    </tr>
+</table>
+
+</body>
+</html>
