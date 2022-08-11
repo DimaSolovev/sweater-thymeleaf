@@ -8,8 +8,8 @@
     <form th:action="@{/user}" method="post">
         <input type="text" th:value="${user.username}" name="username"/>
         <div th:each="role : ${roles}">
-            <input th:id="${role}" type="checkbox" th:name="roles[]" th:value="${role}" th:checked="${#lists.contains(user.roles, role)}" />
-            <label th:text="${role}" /></label>
+            <input th:id="${role}" type="checkbox" th:name="roles[]" th:value="${role}" th:checked="${#lists.contains(user.roles, role)}"/><!--отметит роль  если user имеет ее-->
+            <label th:text="${role}"/></label>
         </div>
 
         <input type="hidden" th:value="${user.id}" name="userId"/>

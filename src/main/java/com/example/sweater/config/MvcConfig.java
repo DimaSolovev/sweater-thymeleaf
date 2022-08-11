@@ -16,6 +16,8 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**")
                 .addResourceLocations("file:///" + uploadPath + "/");
+        registry.addResourceHandler("/static/**") //для добавления стилей, но без этого thymeleaf тоже работает
+                .addResourceLocations("classpath:/static/");
     }
 
     public void addViewControllers(ViewControllerRegistry registry) {

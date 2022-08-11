@@ -6,7 +6,7 @@
 </head>
 <body>
 Adding new user
-<div th:if="${message != null}" th:text="${message}">message</div>
+<div th:if="${message != null}" th:text="${message}">message</div><!--message сообщение об ошибке если user уже существует-->
 <form th:action="@{/registration}" method="post">
     <div><label> User Name : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>

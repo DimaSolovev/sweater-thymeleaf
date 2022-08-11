@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" /><!--подключаем стили-->
 </head>
 <body>
 <div>
@@ -11,7 +12,7 @@
     </form>
 </div>
 <span><a th:href="@{/user}">User list</a></span>
-<div>
+<div><!--добавление нового сообщения с файлом-->
     <form th:action="@{/main}" method="post" enctype="multipart/form-data">
         <input type="text" name="text" placeholder="Введите сообщение"/>
         <input type="text" name="tag" placeholder="Тэг"/>
@@ -20,12 +21,12 @@
     </form>
 </div>
 <div>Список сообщений</div>
-<div th:if="${messages.isEmpty()}">
+<div th:if="${messages.isEmpty()}"><!--если список сообщений пустой-->
     <div>No messages</div>
 </div>
-<div th:if="${!messages.isEmpty()}">
+<div th:if="${!messages.isEmpty()}"><!--если список сообщений не пустой-->
     <div>
-        <form th:action="@{/main}" method="get">
+        <form th:action="@{/main}" method="get"><!--MainController-->
             <input type="text" name="filter" th:value="${filter}">
             <button type="submit">Найти</button>
         </form>
