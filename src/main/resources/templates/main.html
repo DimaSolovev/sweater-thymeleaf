@@ -12,9 +12,10 @@
 </div>
 <span><a th:href="@{/user}">User list</a></span>
 <div>
-    <form th:action="@{/main}" method="post">
+    <form th:action="@{/main}" method="post" enctype="multipart/form-data">
         <input type="text" name="text" placeholder="Введите сообщение"/>
         <input type="text" name="tag" placeholder="Тэг"/>
+        <input type="file" name="file">
         <button type="submit">Добавить</button>
     </form>
 </div>
@@ -29,15 +30,15 @@
             <button type="submit">Найти</button>
         </form>
     </div>
-    <table>
-        <!--/*@thymesVar id="messages" type="com.example.sweater.domain.Message"*/-->
-        <tr th:each="message : ${messages}">
-            <td th:text="${message.id}"></td>
-            <td th:text="${message.text}"></td>
-            <td th:text="${message.tag}"></td>
-            <td th:text="${message.authorName}"></td>
-        </tr>
-    </table>
+    <div th:each="message : ${messages}">
+        <b th:text="${message.id}"></b>
+        <span th:text="${message.text}"></span>
+        <i th:text="${message.tag}"></i>
+        <strong th:text="${message.authorName}"></strong>
+        <div th:if="${message.filename} != null">
+            <img th:src="@{/img/{filename}(filename = ${message.filename})}">
+        </div>
+    </div>
 </div>
 
 </body>
