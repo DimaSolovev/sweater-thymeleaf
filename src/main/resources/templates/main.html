@@ -37,7 +37,7 @@
         <i th:text="${message.tag}"></i>
         <strong th:text="${message.authorName}"></strong>
         <div th:if="${message.filename} != null">
-            <img th:src="@{/img/{filename}(filename = ${message.filename})}">
+            <img th:src="@{/img/{filename}(filename = ${message.filename})}"><!--в MvcConfig обрабатывается /img/{filename} и загружается-->
         </div>
     </div>
 </div>
