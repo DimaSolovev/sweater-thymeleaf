@@ -2,8 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Spring Security Example </title>
+    <div th:replace="fragments/common :: myheader"></div>
 </head>
 <body>
+<div th:replace="fragments/common :: navbar"></div>
+<div class="container">
 Login page
 <form th:action="@{/login}" method="post"><!--в MvcConfig замапили на страницу login вместо стандартной-->
     <div><label> User Name : <input type="text" name="username"/> </label></div>
@@ -11,5 +14,8 @@ Login page
     <div><input type="submit" value="Sign In"/></div>
 </form>
 <a th:href="@{/registration}">Add new user</a>
+
+<div th:insert="fragments/common :: foot"></div>
+</div>
 </body>
 </html>

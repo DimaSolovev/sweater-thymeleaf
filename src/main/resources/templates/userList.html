@@ -3,8 +3,11 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Users list</title>
+    <div th:replace="fragments/common :: myheader"></div>
 </head>
 <body>
+<div th:replace="fragments/common :: navbar"></div>
+<div class="container">
 <div>List of users</div>
 <table>
     <tr>
@@ -20,5 +23,7 @@
     </tr>
 </table>
 
+<div th:insert="fragments/common :: foot"></div>
+</div>
 </body>
 </html>

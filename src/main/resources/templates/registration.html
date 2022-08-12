@@ -3,8 +3,11 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Spring Security Example </title>
+    <div th:replace="fragments/common :: myheader"></div>
 </head>
 <body>
+<div th:replace="fragments/common :: navbar"></div>
+<div class="container">
 Adding new user
 <div th:if="${message != null}" th:text="${message}">message</div><!--message сообщение об ошибке если user уже существует-->
 <form th:action="@{/registration}" method="post">
@@ -12,5 +15,8 @@ Adding new user
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
+
+<div th:insert="fragments/common :: foot"></div>
+</div>
 </body>
 </html>
