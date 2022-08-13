@@ -43,12 +43,15 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/main">Messages</a>
                     </li>
-                    <div sec:authorize="hasAuthority('ADMIN')">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/user">User list</a>
-                        </li>
-                    </div>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/user">User list</a>
+                    </li>
                 </ul>
+                <div class="navbar-text"><!--использовать имя user в вставке text в navbar справа вверху https://github.com/thymeleaf/thymeleaf-extras-springsecurity#using-the-attributes-->
+                    <div sec:authentication="name">
+
+                    </div>
+                </div>
             </div>
         </div>
     </nav>

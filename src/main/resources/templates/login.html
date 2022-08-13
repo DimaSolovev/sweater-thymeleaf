@@ -7,15 +7,26 @@
 <body>
 <div th:replace="fragments/common :: navbar"></div>
 <div class="container">
-Login page
-<form th:action="@{/login}" method="post"><!--в MvcConfig замапили на страницу login вместо стандартной-->
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-<a th:href="@{/registration}">Add new user</a>
+    <form th:action="@{/login}" method="post"><!--в MvcConfig замапили на страницу login вместо стандартной-->
+        <!--    <div><label> User Name : <input type="text" name="username"/> </label></div>-->
+        <!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
+        <div class="mb-3">
+            <label for="username" class="form-label">User Name:</label>
+            <div class="col-6">
+                <input type="text" class="form-control" name="username" id="username" placeholder="User name">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Password:</label>
+            <div class="col-6">
+                <input type="password" class="form-control col-6" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+    <a class="mt-5" th:href="@{/registration}">Add new user</a>
 
-<div th:insert="fragments/common :: foot"></div>
+    <div th:insert="fragments/common :: foot"></div>
 </div>
 </body>
 </html>
