@@ -37,13 +37,25 @@
     <div th:if="${!messages.isEmpty()}"><!--если список сообщений не пустой-->
 
         <div th:each="message : ${messages}">
-            <b th:text="${message.id}"></b>
-            <span th:text="${message.text}"></span>
-            <i th:text="${message.tag}"></i>
-            <strong th:text="${message.authorName}"></strong>
-            <div th:if="${message.filename} != null">
-                <img th:src="@{/img/{filename}(filename = ${message.filename})}">
-                <!--в MvcConfig обрабатывается /img/{filename} и загружается-->
+            <!--            <b th:text="${message.id}"></b>-->
+            <!--            <span th:text="${message.text}"></span>-->
+            <!--            <i th:text="${message.tag}"></i>-->
+            <!--            <strong th:text="${message.authorName}"></strong>-->
+            <!--            <div th:if="${message.filename} != null">-->
+            <!--                <img th:src="@{/img/{filename}(filename = ${message.filename})}">-->
+            <!--                &lt;!&ndash;в MvcConfig обрабатывается /img/{filename} и загружается&ndash;&gt;-->
+            <!--            </div>-->
+
+            <div class="card my-3" style="width: 18rem;">
+                <div th:if="${message.filename} != null">
+                    <img th:src="@{/img/{filename}(filename = ${message.filename})}" class="card-img-top" alt="...">
+                    <!--в MvcConfig обрабатывается /img/{filename} и загружается-->
+                </div>
+                <div class="card-body m-2">
+                    <span th:text="${message.text}"></span>
+                    <i th:text="${message.tag}"></i>
+                    <div class="card-footer" th:text="${message.authorName}"></div>
+                </div>
             </div>
         </div>
     </div>
