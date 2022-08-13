@@ -47,10 +47,13 @@
                         <a class="nav-link active" aria-current="page" href="/user">User list</a>
                     </li>
                 </ul>
-                <div class="navbar-text"><!--использовать имя user в вставке text в navbar справа вверху https://github.com/thymeleaf/thymeleaf-extras-springsecurity#using-the-attributes-->
-                    <div sec:authentication="name">
-
-                    </div>
+                <div class="navbar-text me-2" sec:authentication="name">
+                    <!--использовать имя user в вставке text в navbar справа вверху https://github.com/thymeleaf/thymeleaf-extras-springsecurity#using-the-attributes-->
+                </div>
+                <div>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-primary">Sign Out</button>
+                    </form>
                 </div>
             </div>
         </div>

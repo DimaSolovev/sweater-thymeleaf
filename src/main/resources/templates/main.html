@@ -7,15 +7,17 @@
 <body>
 <div th:replace="fragments/common :: navbar"></div>
 <div class="container">
-    <div>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <form th:action="@{/main}" method="get" class="form-inline"><!--MainController-->
+                <input type="text" name="filter" th:value="${filter}" placeholder="Search by tag">
+                <button type="submit" class="btn btn-primary ms-2">Search</button>
+            </form>
+        </div>
     </div>
-    <div sec:authorize="hasAuthority('ADMIN')">
-        <span><a th:href="@{/user}">User list</a></span>
-    </div>
-    <div><!--добавление нового сообщения с файлом-->
+
+    <div class="mt-2"><!--добавление нового сообщения с файлом-->
         <form th:action="@{/main}" method="post" enctype="multipart/form-data">
             <input type="text" name="text" placeholder="Введите сообщение"/>
             <input type="text" name="tag" placeholder="Тэг"/>
@@ -23,17 +25,12 @@
             <button type="submit">Добавить</button>
         </form>
     </div>
-    <div>Список сообщений</div>
+
     <div th:if="${messages.isEmpty()}"><!--если список сообщений пустой-->
         <div>No messages</div>
     </div>
     <div th:if="${!messages.isEmpty()}"><!--если список сообщений не пустой-->
-        <div>
-            <form th:action="@{/main}" method="get"><!--MainController-->
-                <input type="text" name="filter" th:value="${filter}">
-                <button type="submit">Найти</button>
-            </form>
-        </div>
+
         <div th:each="message : ${messages}">
             <b th:text="${message.id}"></b>
             <span th:text="${message.text}"></span>
