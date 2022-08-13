@@ -8,7 +8,7 @@
 <div th:replace="fragments/common :: navbar"></div>
 <div class="container">
 
-    <div class="row g-3">
+    <div class="row g-3"><!--поиск по tag-->
         <div class="col-md-6">
             <form th:action="@{/main}" method="get" class="form-inline"><!--MainController-->
                 <input type="text" name="filter" th:value="${filter}" placeholder="Search by tag">
@@ -17,12 +17,16 @@
         </div>
     </div>
 
-    <div class="mt-2"><!--добавление нового сообщения с файлом-->
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Add new message
+    </a>
+
+    <div class="collapse mt-2" id="collapseExample"><!--добавление нового сообщения с файлом-->
         <form th:action="@{/main}" method="post" enctype="multipart/form-data">
             <input type="text" name="text" placeholder="Введите сообщение"/>
             <input type="text" name="tag" placeholder="Тэг"/>
             <input type="file" name="file">
-            <button type="submit">Добавить</button>
+            <button class="btn btn-primary" type="submit">Добавить</button>
         </form>
     </div>
 
