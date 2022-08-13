@@ -17,16 +17,17 @@
         </div>
     </div>
 
-    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+       aria-controls="collapseExample">
         Add new message
     </a>
 
     <div class="collapse mt-2" id="collapseExample"><!--добавление нового сообщения с файлом-->
         <form th:action="@{/main}" method="post" enctype="multipart/form-data">
-            <input type="text" name="text" placeholder="Введите сообщение"/>
-            <input type="text" name="tag" placeholder="Тэг"/>
-            <input type="file" name="file">
-            <button class="btn btn-primary" type="submit">Добавить</button>
+            <input type="text" class="form-control" name="text" placeholder="Введите сообщение"/>
+            <input type="text" class="form-control" name="tag" placeholder="Тэг"/>
+            <input type="file" class="form-control" placeholder="Choose file">
+            <button class="btn btn-primary mt-2" type="submit">Добавить</button>
         </form>
     </div>
 
