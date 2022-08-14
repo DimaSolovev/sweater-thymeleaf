@@ -8,8 +8,6 @@
 <div th:replace="fragments/common :: navbar"></div>
 <div class="container">
     <form th:action="@{/login}" method="post"><!--в MvcConfig замапили на страницу login вместо стандартной-->
-        <!--    <div><label> User Name : <input type="text" name="username"/> </label></div>-->
-        <!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
         <div class="mb-3">
             <label for="username" class="form-label">User Name:</label>
             <div class="col-6">
@@ -17,7 +15,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="username" class="form-label">Password:</label>
+            <label for="password" class="form-label">Password:</label>
             <div class="col-6">
                 <input type="password" class="form-control col-6" name="password" id="password" placeholder="Password">
             </div>
