@@ -35,9 +35,9 @@
         <div>No messages</div>
     </div>
     <div th:if="${!messages.isEmpty()}"><!--если список сообщений не пустой-->
-        <div class="card-group row-cols-3">
+        <div class="card-group row-cols-3" data-masonry='{"percentPosition": true }'> <!--упорядочиваем карточки-->
             <div th:each="message : ${messages}">
-                <div class="card my-3 mx-3">
+                <div class="card my-3 mx-3"><!--создаем карточки-->
                     <div th:if="${message.filename} != null">
                         <img th:src="@{/img/{filename}(filename = ${message.filename})}" class="card-img-top" alt="...">
                         <!--в MvcConfig обрабатывается /img/{filename} и загружается-->
@@ -54,7 +54,7 @@
 </div>
 
 <div th:insert="fragments/common :: foot"></div>
-
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 </body>
 </html>
 <!--            <b th:text="${message.id}"></b>-->
