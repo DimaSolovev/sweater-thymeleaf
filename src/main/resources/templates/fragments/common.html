@@ -51,7 +51,7 @@
                     <!--использовать имя user в вставке text в navbar справа вверху https://github.com/thymeleaf/thymeleaf-extras-springsecurity#using-the-attributes-->
                 </div>
 
-                <form sec:authorize="hasAuthority('ADMIN') and hasAuthority('USER')" th:action="@{/logout}" method="post">
+                <form sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" th:action="@{/logout}" method="post">
                     <button type="submit" class="btn btn-primary">Sign Out</button>
                 </form><!--скрывать кнопку Sing Out если user не зарегистрировался-->
 

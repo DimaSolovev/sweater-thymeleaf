@@ -8,13 +8,8 @@
 <body>
 <div th:replace="fragments/common :: navbar"></div>
 <div class="container">
-Adding new user
-<div th:if="${message != null}" th:text="${message}">message</div><!--message сообщение об ошибке если user уже существует-->
-<!--<form th:action="@{/registration}" method="post">-->
-<!--    <div><label> User Name : <input type="text" name="username"/> </label></div>-->
-<!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
-<!--    <div><input type="submit" value="Sign In"/></div>-->
-<!--</form>-->
+    Adding new user
+    <div th:if="${message != null}" th:text="${message}">message</div><!--message сообщение об ошибке если user уже существует-->
     <form th:action="@{/registration}" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">User Name:</label>
@@ -37,7 +32,7 @@ Adding new user
         <button type="submit" class="btn btn-primary">Sign In</button>
     </form>
 
-<div th:insert="fragments/common :: foot"></div>
+    <div th:insert="fragments/common :: foot"></div>
 </div>
 </body>
 </html>
