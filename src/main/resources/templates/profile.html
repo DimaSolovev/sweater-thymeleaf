@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Document</title>
+    <div th:replace="fragments/common :: myheader"></div>
+</head>
+<body>
+<div th:replace="fragments/common :: navbar"></div>
+
+<div class="container">
+    <form th:action="@{/user/profile}" method="post"><!--UserController updateProfile()-->
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <div class="col-6">
+                <input type="password" class="form-control col-6" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <div class="col-6">
+                <input type="email" class="form-control col-6" name="email" id="email" placeholder="Email" th:value="${email}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+    <div th:insert="fragments/common :: foot"></div>
+</div>
+
+<div th:insert="fragments/common :: foot"></div>
+</body>
+</html>

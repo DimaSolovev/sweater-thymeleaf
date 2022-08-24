@@ -46,6 +46,9 @@
                     <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/user">User list</a>
                     </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/user/profile">Profile</a>
+                    </li>
                 </ul>
                 <div class="navbar-text me-2" sec:authentication="name">
                     <!--использовать имя user в вставке text в navbar справа вверху https://github.com/thymeleaf/thymeleaf-extras-springsecurity#using-the-attributes-->
