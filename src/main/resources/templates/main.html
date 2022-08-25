@@ -22,39 +22,54 @@
         Add new message
     </a>
 
-    <div class="collapse mt-2" id="collapseExample"><!--добавление нового сообщения с файлом-->
+    <div class="collapse mt-2" th:classappend="${message!=null} ? show : ''" id="collapseExample">
+        <!--добавление нового сообщения с файлом-->
         <form th:action="@{/main}" method="post" enctype="multipart/form-data">
-            <input type="text" class="form-control" name="text" placeholder="Введите сообщение"/>
-            <input type="text" class="form-control" name="tag" placeholder="Тэг"/>
-            <input type="file" class="form-control" placeholder="Choose file">
-            <button class="btn btn-primary mt-2" type="submit">Добавить</button>
-        </form>
-    </div>
+            <input type="text" class="form-control" name="text" placeholder="Введите сообщение"
+                   th:classappend="${message!=null} ? is-invalid : ''"
+                   th:value="${message !=null} ? ${message.getText()} : ''"/>
+            <div class="invalid-feedback">
+                <div th:if="${message !=null}" th:object="${message}" th:field="*{text}" id="text">
+                    <div style="color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text Error</div>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="tag" placeholder="Тэг" th:value="${message !=null} ? ${message.getTag()} : ''"/>
+            <div class=" invalid-feedback">
+                <div th:if="${message !=null}" th:object="${message}" th:field="*{tag}" id="tag">
+                    <div style="color:red" th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}">Text Error</div>
+                </div>
+            </div>
+    <input type="file" class="form-control" placeholder="Choose file">
+    <button class="btn btn-primary mt-2" type="submit">Добавить</button>
+    </form>
+</div>
 
-    <div th:if="${messages.isEmpty()}"><!--если список сообщений пустой-->
-        <div>No messages</div>
-    </div>
-    <div th:if="${!messages.isEmpty()}"><!--если список сообщений не пустой-->
-        <div class="card-group row-cols-3" data-masonry='{"percentPosition": true }'> <!--упорядочиваем карточки-->
-            <div th:each="message : ${messages}">
-                <div class="card my-3 mx-3"><!--создаем карточки-->
-                    <div th:if="${message.filename} != null">
-                        <img th:src="@{/img/{filename}(filename = ${message.filename})}" class="card-img-top" alt="...">
-                        <!--в MvcConfig обрабатывается /img/{filename} и загружается-->
-                    </div>
-                    <div class="card-body m-2">
-                        <span th:text="${message.text}"></span>
-                        <i th:text="${message.tag}"></i>
-                        <div class="card-footer" th:text="${message.authorName}"></div>
-                    </div>
+<div th:if="${messages.isEmpty()}"><!--если список сообщений пустой-->
+    <div>No messages</div>
+</div>
+<div th:if="${!messages.isEmpty()}"><!--если список сообщений не пустой-->
+    <div class="card-group row-cols-3" data-masonry='{"percentPosition": true }'> <!--упорядочиваем карточки-->
+        <div th:each="message : ${messages}">
+            <div class="card my-3 mx-3"><!--создаем карточки-->
+                <div th:if="${message.filename} != null">
+                    <img th:src="@{/img/{filename}(filename = ${message.filename})}" class="card-img-top" alt="...">
+                    <!--в MvcConfig обрабатывается /img/{filename} и загружается-->
+                </div>
+                <div class="card-body m-2">
+                    <span th:text="${message.text}"></span>
+                    <i th:text="${message.tag}"></i>
+                    <div class="card-footer" th:text="${message.authorName}"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 
 <div th:insert="fragments/common :: foot"></div>
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+        integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+        async></script>
 </body>
 </html>
 <!--            <b th:text="${message.id}"></b>-->
