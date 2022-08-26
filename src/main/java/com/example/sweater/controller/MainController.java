@@ -57,8 +57,6 @@ public class MainController {
     @PostMapping("/main")
     public String addMessage(
             @AuthenticationPrincipal User user,
-//            @RequestParam String text,
-//            @RequestParam String tag,
             @Valid Message message,
             BindingResult bindingResult,
             Model model,
@@ -82,7 +80,7 @@ public class MainController {
 
                 message.setFilename(resultFileName);
             }
-
+            model.addAttribute("message",null);
             messageRepository.save(message);
         }
         Iterable<Message> messages = messageRepository.findAll();

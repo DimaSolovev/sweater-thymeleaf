@@ -9,24 +9,66 @@
 <div th:replace="fragments/common :: navbar"></div>
 <div class="container">
     Adding new user
-    <div th:if="${message != null}" th:text="${message}">message</div><!--message сообщение об ошибке если user уже существует-->
+    <div th:if="${message != null}" th:text="${message}">message</div>
+    <!--message сообщение об ошибке если user уже существует-->
     <form th:action="@{/registration}" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">User Name:</label>
             <div class="col-6">
-                <input type="text" class="form-control" name="username" id="username" placeholder="User name">
+                <input type="text" class="form-control" name="username" placeholder="User name"
+                       th:classappend="${user!=null} ? is-invalid : ''"
+                       th:value="${user !=null} ? ${user.getUsername()} : ''"/>
+                <div class="invalid-feedback"> <!--если ошибка-->
+                    <div th:if="${usernameError != null}" th:text="${usernameError}">User exists</div>
+                    <div th:if="${user !=null}" th:object="${user}" th:field="*{username}" id="username">
+                        <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
+                            Error
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password:</label>
             <div class="col-6">
-                <input type="password" class="form-control col-6" name="password" id="password" placeholder="Password">
+                <input type="password" class="form-control col-6" name="password" placeholder="Password"
+                       th:classappend="${user!=null} ? is-invalid : ''"/>
+                <div class="invalid-feedback"><!--если ошибка-->
+                    <div th:if="${passwordError != null}" th:text="${passwordError}">PasswordError</div>
+                    <div th:if="${user !=null}" th:object="${user}" th:field="*{password}" id="password">
+                        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+                            Error
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">Password:</label>
+            <div class="col-6">
+                <input type="password" class="form-control col-6" name="password2" placeholder="Retype password"
+                       th:classappend="${user!=null} ? is-invalid : ''"/>
+                <div class="invalid-feedback"><!--если ошибка-->
+                    <div th:if="${user !=null}" th:object="${user}" th:field="*{password2}" id="password2">
+                        <div style="color:red" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}">
+                            Password2 Error
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
             <div class="col-6">
-                <input type="email" class="form-control col-6" name="email" id="email" placeholder="some@some.come">
+                <input type="email" class="form-control col-6" name="email" placeholder="Email"
+                       th:classappend="${user!=null} ? is-invalid : ''"
+                       th:value="${user !=null} ? ${user.getEmail()} : ''"/>
+                <div class="invalid-feedback"><!--если ошибка-->
+                    <div th:if="${user !=null}" th:object="${user}" th:field="*{email}" id="email">
+                        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Sign In</button>
