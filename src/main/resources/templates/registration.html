@@ -11,18 +11,16 @@
     Adding new user
     <div th:if="${message != null}" th:text="${message}">message</div>
     <!--message сообщение об ошибке если user уже существует-->
-    <form th:action="@{/registration}" method="post">
+    <form th:action="@{/registration}" method="post" th:object="${user}">
         <div class="mb-3">
             <label for="username" class="form-label">User Name:</label>
             <div class="col-6">
                 <input type="text" class="form-control" name="username" id="username" placeholder="User name"
-                       th:classappend="${user!=null} ? is-invalid : ''"
-                       th:value="${user !=null} ? ${user.getUsername()} : ''"/>
+                       th:classappend="${#fields.hasErrors('username') || userExists != null} ? is-invalid : ''"
+                       th:value="${user.username !=null} ? ${user.getUsername()} : ''"/>
                 <div class="invalid-feedback" th:if="${userExists != null}" th:text="${userExists}">User exists</div>
-                <div class="invalid-feedback" th:if="${user !=null}" th:object="${user}" th:field="*{username}">
-                    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
-                        Error
-                    </div>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
+                    Error
                 </div>
             </div>
         </div>
@@ -30,14 +28,13 @@
             <label for="password" class="form-label">Password:</label>
             <div class="col-6">
                 <input type="password" class="form-control col-6" name="password" placeholder="Password"
-                       th:classappend="${user!=null} ? is-invalid : ''"/>
-                <div class="invalid-feedback"><!--если ошибка-->
-                    <div th:if="${passwordError != null}" th:text="${passwordError}">PasswordError</div>
-                    <div th:if="${user !=null}" th:object="${user}" th:field="*{password}" id="password">
-                        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
-                            Error
-                        </div>
-                    </div>
+                       th:classappend="${passError!=null || #fields.hasErrors('password')} ? is-invalid : ''"
+                       id="password"/>
+                <div class="invalid-feedback" th:if="${passError != null}" th:text="${passError}">
+                    PasswordError
+                </div>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                    Password Error
                 </div>
             </div>
         </div>
@@ -45,28 +42,20 @@
             <label for="password2" class="form-label">Password:</label>
             <div class="col-6">
                 <input type="password" class="form-control col-6" name="password2" placeholder="Retype password"
-                       id="password2"
-                       th:classappend="${password2Error!=null} ? is-invalid : ''"/>
-                <div class="invalid-feedback"><!--если ошибка-->
-                    <div th:if="${password2Error !=null}">
-                        <div style="color:red" th:text="${password2Error}">
-                            Password2 Error
-                        </div>
-                    </div>
+                       id="password2" th:classappend="${password2Error!=null} ? is-invalid : ''"/>
+                <div class="invalid-feedback" th:if="${password2Error !=null}" th:text="${password2Error}">
+                    Password2 Error
                 </div>
             </div>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
             <div class="col-6">
-                <input type="email" class="form-control col-6" name="email" placeholder="Email"
-                       th:classappend="${user!=null} ? is-invalid : ''"
-                       th:value="${user !=null} ? ${user.getEmail()} : ''"/>
-                <div class="invalid-feedback"><!--если ошибка-->
-                    <div th:if="${user !=null}" th:object="${user}" th:field="*{email}" id="email">
-                        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error
-                        </div>
-                    </div>
+                <input type="email" class="form-control col-6" id="email" name="email" placeholder="Email"
+                       th:classappend="${#fields.hasErrors('email')} ? is-invalid : ''"
+                       th:value="${user.getEmail() !=null} ? ${user.getEmail()} : ''"/>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                    Email Error
                 </div>
             </div>
         </div>

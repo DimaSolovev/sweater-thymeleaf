@@ -18,6 +18,11 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
+    @ModelAttribute(name = "user")
+    public User order() {
+        return new User();
+    }
+
     @GetMapping("/registration")
     public String registration() {
         return "registration";
@@ -31,17 +36,16 @@ public class RegistrationController {
             Model model
     ) {
         boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);
-        if(isConfirmEmpty){
+        if (isConfirmEmpty) {
             model.addAttribute("password2Error", "Password confirmation cannot be empty");
+            return "registration";
         }
         if (user.getPassword() != null && !user.getPassword().equals(passwordConfirm)) {
-            model.addAttribute("passwordError", "Password are different");
+            model.addAttribute("passError", "Password are different");
             model.addAttribute("user", user);
             return "registration";
         }
-        if (isConfirmEmpty || bindingResult.hasErrors()) {
-            Map<String, String> errors = ControllerUtil.getErrors(bindingResult);
-            model.mergeAttributes(errors);
+        if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             return "registration";
         }
