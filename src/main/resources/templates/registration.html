@@ -18,7 +18,7 @@
                 <input type="text" class="form-control" name="username" id="username" placeholder="User name"
                        th:classappend="${#fields.hasErrors('username') || userExists != null} ? is-invalid : ''"
                        th:value="${user.username !=null} ? ${user.getUsername()} : ''"/>
-                <div class="invalid-feedback" th:if="${userExists != null}" th:text="${userExists}">User exists</div>
+                <div class="invalid-feedback" th:if="${userExists != null}" th:text="${userExists}">User exists</div><!--если ошибка-->
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
                     Error
                 </div>
@@ -30,7 +30,7 @@
                 <input type="password" class="form-control col-6" name="password" placeholder="Password"
                        th:classappend="${passError!=null || #fields.hasErrors('password')} ? is-invalid : ''"
                        id="password"/>
-                <div class="invalid-feedback" th:if="${passError != null}" th:text="${passError}">
+                <div class="invalid-feedback" th:if="${passError != null}" th:text="${passError}"><!--если ошибка-->
                     PasswordError
                 </div>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
@@ -43,7 +43,7 @@
             <div class="col-6">
                 <input type="password" class="form-control col-6" name="password2" placeholder="Retype password"
                        id="password2" th:classappend="${password2Error!=null} ? is-invalid : ''"/>
-                <div class="invalid-feedback" th:if="${password2Error !=null}" th:text="${password2Error}">
+                <div class="invalid-feedback" th:if="${password2Error !=null}" th:text="${password2Error}"><!--если ошибка-->
                     Password2 Error
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <input type="email" class="form-control col-6" id="email" name="email" placeholder="Email"
                        th:classappend="${#fields.hasErrors('email')} ? is-invalid : ''"
                        th:value="${user.getEmail() !=null} ? ${user.getEmail()} : ''"/>
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"><!--если ошибка-->
                     Email Error
                 </div>
             </div>

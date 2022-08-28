@@ -14,6 +14,7 @@ public class Message {
     @NotBlank(message = "Please fill the message")
     @Length(max = 2048, message = "Message to long")
     private String text;
+    @NotBlank(message = "Please fill the tag")
     @Length(max = 5, message = "Tag to long(max 5)")
     private String tag;
 
@@ -33,8 +34,8 @@ public class Message {
         this.tag = tag;
     }
 
-    public String getAuthorName(){
-        return author !=null ? author.getUsername() : "<none>";
+    public String getAuthorName() {
+        return author != null ? author.getUsername() : "<none>";
     }
 
     public User getAuthor() {

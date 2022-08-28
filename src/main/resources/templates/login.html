@@ -7,7 +7,9 @@
 <body>
 <div th:replace="fragments/common :: navbar"></div>
 <div class="container">
-    <div th:if="${message != null}" th:text="${message}">message</div><!--message сообщение user активирован из RegistrationController-->
+    <div th:if="${message != null}" class="alert-${messageType}" th:text="${message}">
+        message
+    </div><!--message сообщение user активирован из RegistrationController-->
     <form th:action="@{/login}" method="post"><!--в MvcConfig замапили на страницу login вместо стандартной-->
         <div class="mb-3">
             <label for="username" class="form-label">User Name:</label>
