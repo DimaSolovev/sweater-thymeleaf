@@ -9,15 +9,15 @@
 <div th:replace="fragments/common :: navbar"></div>
 <div class="container">
     Adding new user
-    <div th:if="${message != null}" th:text="${message}">message</div>
-    <!--message сообщение об ошибке если user уже существует-->
+    <div th:if="${userExists != null}" th:text="${userExists}">User exist</div>
+    <!--userExists сообщение об ошибке если user уже существует-->
     <form th:action="@{/registration}" method="post" th:object="${user}">
         <div class="mb-3">
             <label for="username" class="form-label">User Name:</label>
             <div class="col-6">
                 <input type="text" class="form-control" name="username" id="username" placeholder="User name"
                        th:classappend="${#fields.hasErrors('username') || userExists != null} ? is-invalid : ''"
-                       th:value="${user.username !=null} ? ${user.getUsername()} : ''"/>
+                       th:value="${user.username !=null} ? ${user.username} : ''"/>
                 <div class="invalid-feedback" th:if="${userExists != null}" th:text="${userExists}">User exists</div><!--если ошибка-->
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
                     Error
@@ -53,7 +53,7 @@
             <div class="col-6">
                 <input type="email" class="form-control col-6" id="email" name="email" placeholder="Email"
                        th:classappend="${#fields.hasErrors('email')} ? is-invalid : ''"
-                       th:value="${user.getEmail() !=null} ? ${user.getEmail()} : ''"/>
+                       th:value="${user.email !=null} ? ${user.email} : ''"/>
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"><!--если ошибка-->
                     Email Error
                 </div>
