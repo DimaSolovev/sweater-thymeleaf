@@ -19,3 +19,4 @@ spring:
 mail.debug: false
 
 upload.path: /C:/D/JavaP/sweaterThymeleaf/upload
+recaptcha.secret: 6LdjI7chAAAAANxOtTwE8hAmIv0kq1DJGR3i8qoZ
