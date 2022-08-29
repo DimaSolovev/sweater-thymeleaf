@@ -7,7 +7,8 @@
 <body>
 <div th:replace="fragments/common :: navbar"></div>
 <div class="container">
-    <div th:if="${isUserActivated != null}" class="alert-${messageType}" th:text="${isUserActivated}">
+    <div th:if="${isUserActivated != null}" class="col-6 alert"
+         th:classappend="${success != null} ? alert-success : alert-danger" th:text="${isUserActivated}">
         New user login result
     </div><!--message сообщение user активирован из RegistrationController-->
     <form th:action="@{/login}" method="post"><!--в MvcConfig замапили на страницу login вместо стандартной-->
