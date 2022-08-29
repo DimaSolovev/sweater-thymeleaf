@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Set;
-
+//класс принимает ответ от captcha в RegistrationController
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CaptchaResponseDto {
     private boolean success;

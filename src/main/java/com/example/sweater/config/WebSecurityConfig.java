@@ -26,12 +26,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/registration","/static/**", "/activate/*").permitAll()//чтобы стат ресурсы раздавались без авторизации
+                .antMatchers("/", "/registration", "/static/**", "/activate/*").permitAll()//чтобы стат ресурсы раздавались без авторизации
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").defaultSuccessUrl("/main")
                 .permitAll()
+                .and()
+                .rememberMe()
                 .and()
                 .logout()
                 .permitAll();
@@ -39,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {// что бы при регистрации не отправлял на http://localhost:8080/css/style.css
-        web.ignoring().antMatchers("/css/**","/js/**","/fonts/**","/images/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/fonts/**", "/images/**");
     }
 
     @Override//проверка пароля при логине пользователя

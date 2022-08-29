@@ -25,11 +25,11 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @Value("${recaptcha.secret}")
+    @Value("${recaptcha.secret}")//код captcha, второй код в registration.html
     private String secret;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate;//для отправки запроса на captcha
 
     @ModelAttribute(name = "user")
     public User order() {
