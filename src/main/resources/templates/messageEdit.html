@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Message edit</title>
+    <div th:replace="fragments/common :: myheader"></div>
+</head>
+<body>
+<div th:replace="fragments/common :: navbar"></div>
+
+<form th:action="@{/main}" method="post" enctype="multipart/form-data" th:object="${message}">
+    <input type="text" class="form-control" name="text" placeholder="Введите сообщение"
+           th:classappend="${#fields.hasErrors('text')} ? is-invalid : ''"
+           th:value="${message.text != null} ? ${message.text} : ''"/>
+    <div class="invalid-feedback" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">
+        Text Error
+    </div>
+    <input type="text" class="form-control" name="tag" placeholder="Введите тэг"
+           th:classappend="${#fields.hasErrors('tag')} ? is-invalid : ''"
+           th:value="${message.tag !=null} ? ${message.tag} : ''"/>
+    <div class=" invalid-feedback" th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}">
+        Tag Error
+    </div>
+    <input type="file" class="form-control" placeholder="Choose file">
+    <button class="btn btn-primary mt-2" type="submit">Добавить</button>
+</form>
+
+<div th:insert="fragments/common :: foot"></div>
+</body>
+</html>

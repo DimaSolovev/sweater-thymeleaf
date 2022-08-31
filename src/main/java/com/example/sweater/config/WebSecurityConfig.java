@@ -26,11 +26,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/static/**", "/activate/*").permitAll()//чтобы стат ресурсы раздавались без авторизации
+                .antMatchers("/registration", "/static/**", "/activate/*").permitAll()//чтобы стат ресурсы раздавались без авторизации
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login").defaultSuccessUrl("/main")
+                .loginPage("/login")
+                //.defaultSuccessUrl("/main")
                 .permitAll()
                 .and()
                 .rememberMe()

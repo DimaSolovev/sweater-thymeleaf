@@ -22,7 +22,8 @@
         Add new message
     </a>
 
-    <div class="collapse mt-2" th:classappend="${message.text != null || message.tag != null} ? show : ''" id="collapseExample">
+    <div class="collapse mt-2" th:classappend="${message.text != null || message.tag != null} ? show : ''"
+         id="collapseExample">
         <!--добавление нового сообщения с файлом-->
         <form th:action="@{/main}" method="post" enctype="multipart/form-data" th:object="${message}">
             <input type="text" class="form-control" name="text" placeholder="Введите сообщение"
@@ -54,9 +55,14 @@
                         <!--в MvcConfig обрабатывается /img/{filename} и загружается-->
                     </div>
                     <div class="card-body m-2">
-                        <span th:text="${message.text}"></span>
+                        <span th:text="${message.text}"></span><br>
                         <i th:text="${message.tag}"></i>
-                        <div class="card-footer" th:text="${message.authorName}"></div>
+                        <div class="card-footer">
+                            <a class="link-primary" th:href="@{/{id} (id = ${message.author.id})}"
+                               th:text="${message.author.username}">My messages</a>
+                            <a class="btn btn-primary" th:if="${message.author.id == #authentication.principal.id}"
+                               th:href="@{/user-messages/{authorId}?message={messageId} (authorId = ${message.author.id}, messageId = ${message.id})}">Edit</a>
+                        </div>
                     </div>
                 </div>
             </div>
