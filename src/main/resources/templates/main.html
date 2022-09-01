@@ -39,7 +39,7 @@
                 Tag Error
             </div>
             <input type="file" class="form-control" placeholder="Choose file">
-            <button class="btn btn-primary mt-2" type="submit">Добавить</button>
+            <button class="btn btn-primary mt-2" type="submit">Save</button>
         </form>
     </div>
 
@@ -58,7 +58,7 @@
                         <span th:text="${message.text}"></span><br>
                         <i th:text="${message.tag}"></i>
                         <div class="card-footer">
-                            <a class="link-primary" th:href="@{/{id} (id = ${message.author.id})}"
+                            <a class="link-primary" th:href="@{/user-messages/{id} (id = ${message.author.id})}"
                                th:text="${message.author.username}">My messages</a>
                             <a class="btn btn-primary" th:if="${message.author.id == #authentication.principal.id}"
                                th:href="@{/user-messages/{authorId}?message={messageId} (authorId = ${message.author.id}, messageId = ${message.id})}">Edit</a>

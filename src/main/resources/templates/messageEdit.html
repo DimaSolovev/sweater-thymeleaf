@@ -21,7 +21,8 @@
         Tag Error
     </div>
     <input type="file" class="form-control" placeholder="Choose file">
-    <button class="btn btn-primary mt-2" type="submit">Добавить</button>
+    <input type="hidden" name="id" th:value="${message != null} ? ${message.id} : ''">
+    <button class="btn btn-primary mt-2" type="submit">Save message</button>
 </form>
 
 <div th:insert="fragments/common :: foot"></div>

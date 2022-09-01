@@ -27,7 +27,7 @@
 </div>
 
 <div th:fragment="navbar"> <!--<div th:replace="fragments/common :: navbar"></div>-->
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg bg-light mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Sweater</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -45,7 +45,8 @@
                         <a class="nav-link active" aria-current="page" href="/main">Messages</a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <a class="nav-link" th:href="@{/user-messages/{id} (id = ${#authentication.principal.id})}">My messages</a>
+                        <a class="nav-link" th:href="@{/user-messages/{id} (id = ${#authentication.principal.id})}">My
+                            messages</a>
                     </li>
                     <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/user">User list</a>
@@ -58,7 +59,8 @@
                     <!--использовать имя user в вставке text в navbar справа вверху https://github.com/thymeleaf/thymeleaf-extras-springsecurity#using-the-attributes-->
                 </div>
 
-                <form sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" th:action="@{/logout}" method="post">
+                <form sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" th:action="@{/logout}"
+                      method="post">
                     <button type="submit" class="btn btn-primary">Sign Out</button>
                 </form><!--скрывать кнопку Sing Out если user не зарегистрировался-->
 
