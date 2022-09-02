@@ -101,11 +101,15 @@ public class MainController {
             @RequestParam(required = false) Message message
     ) {
         Set<Message> messages = user.getMessages();
+        model.addAttribute("userChannel", user);
+        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
+        model.addAttribute("subscribersCount", user.getSubscribers().size());
         model.addAttribute("messages", messages);
+        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
         model.addAttribute("isCurrentUser", currentUser.equals(user));
-        if(message==null){
+        if (message == null) {
             model.addAttribute("message", new Message());
-        }else {
+        } else {
             model.addAttribute("message", message);
         }
         return "userMessages";
@@ -121,13 +125,13 @@ public class MainController {
             @RequestParam(value = "file", required = false) MultipartFile file
     ) throws IOException {
         if (message.getAuthor().equals(currentUser)) {
-            if(!StringUtils.isEmpty(text)){
+            if (!StringUtils.isEmpty(text)) {
                 message.setText(text);
             }
-            if(!StringUtils.isEmpty(tag)){
+            if (!StringUtils.isEmpty(tag)) {
                 message.setTag(tag);
             }
-            saveFile(message,file);
+            saveFile(message, file);
             messageRepository.save(message);
         }
         return "redirect:/user-messages/" + user.getId();

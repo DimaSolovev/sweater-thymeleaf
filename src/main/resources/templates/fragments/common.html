@@ -55,13 +55,15 @@
                         <a class="nav-link active" aria-current="page" href="/user/profile">Profile</a>
                     </li>
                 </ul>
-                <div class="navbar-text me-2" sec:authentication="name">
+                <div class="navbar-text me-2"><!--если авторизован то имя, нет Please login-->
+                    <div sec:authorize="isAuthenticated()" sec:authentication="name"></div>
+                    <div sec:authorize="!isAuthenticated()">Please login</div>
                     <!--использовать имя user в вставке text в navbar справа вверху https://github.com/thymeleaf/thymeleaf-extras-springsecurity#using-the-attributes-->
                 </div>
 
-                <form sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" th:action="@{/logout}"
-                      method="post">
-                    <button type="submit" class="btn btn-primary">Sign Out</button>
+                <form th:action="@{/logout}" method="post">
+                    <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary">Sign Out</button>
+                    <button sec:authorize="!isAuthenticated()" type="submit" class="btn btn-primary">Log in</button>
                 </form><!--скрывать кнопку Sing Out если user не зарегистрировался-->
 
 

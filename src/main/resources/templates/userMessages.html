@@ -6,58 +6,94 @@
 </head>
 <body>
 <div th:replace="fragments/common :: navbar"></div>
-
-<a class="btn btn-primary ms-3" th:classappend="${message.id == null} ? disabled : ''" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-   aria-controls="collapseExample">
-    Edit message
-</a>
-
-<div class="collapse mt-2" th:classappend="${message.text != null || message.tag != null} ? show : ''"
-     id="collapseExample">
-    <!--редактирование сообщения с файлом-->
-    <form th:action="@{/user-messages/{user}(user = ${#authentication.principal.id})}" method="post"
-          enctype="multipart/form-data" th:object="${message}">
-        <input type="text" class="form-control" name="text" placeholder="Введите сообщение"
-               th:classappend="${#fields.hasErrors('text')} ? is-invalid : ''"
-               th:value="${message.text != null} ? ${message.text} : ''"/>
-        <div class="invalid-feedback" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">
-            Text Error
+<div class="container">
+    <h3 th:text="${userChannel.username}"></h3>
+    <div th:if="${!isCurrentUser}"><!--если user id не равен авт пользователю-->
+        <div th:if="${isSubscriber}"><!--подписка и отписка-->
+            <a class="btn btn-info mb-3" th:href="@{/user/unsubscribe/{id}(id = ${userChannel.id})}">Unsubscribe</a>
         </div>
-        <input type="text" class="form-control" name="tag" placeholder="Введите тэг"
-               th:classappend="${#fields.hasErrors('tag')} ? is-invalid : ''"
-               th:value="${message.tag !=null} ? ${message.tag} : ''"/>
-        <div class=" invalid-feedback" th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}">
-            Tag Error
+        <div th:unless="${isSubscriber}"><!-- ELSE -->
+            <a class="btn btn-info mb-3" th:href="@{/user/subscribe/{id}(id = ${userChannel.id})}">Subscribe</a>
         </div>
-        <input type="file" class="form-control" placeholder="Choose file">
-        <input type="hidden" name="id" th:value="${message.id != null} ? ${message.id} : ''">
-        <button class="btn btn-primary mt-2" type="submit">Save</button>
-    </form>
-</div>
-
-<div th:if="${messages.isEmpty()}"><!--если список сообщений пустой-->
-    <div>No messages</div>
-</div>
-<div th:if="${!messages.isEmpty()}"><!--если список сообщений не пустой-->
-    <div class="card-group row-cols-3" data-masonry='{"percentPosition": true }'> <!--упорядочиваем карточки-->
-        <div th:each="message : ${messages}">
-            <div class="card my-3 mx-3"><!--создаем карточки-->
-                <div th:if="${message.filename} != null">
-                    <img th:src="@{/img/{filename}(filename = ${message.filename})}" class="card-img-top" alt="...">
-                    <!--в MvcConfig обрабатывается /img/{filename} и загружается-->
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Subscriptions</div>
+                    <h3 class="card-text">
+                        <a th:href="@{/user/subscriptions/{userChannelId}(userChannelId = ${userChannel.id})}"
+                           th:text="${subscriptionsCount}"></a>
+                    </h3>
                 </div>
-                <div class="card-body m-2">
-                    <span th:text="${message.text}"></span><br>
-                    <i th:text="${message.tag}"></i>
-                    <div class="card-footer">
-                        <a class="btn btn-primary" th:if="${message.author.id == #authentication.principal.id}"
-                           th:href="@{/user-messages/{authorId}?message={messageId} (authorId = ${message.author.id}, messageId = ${message.id})}">Edit</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Subscribers</div>
+                    <h3 class="card-text">
+                        <a th:href="@{/user/subscribers/{userChannelId}(userChannelId = ${userChannel.id})}"
+                           th:text="${subscribersCount}"></a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary ms-3 mt-3" th:classappend="${message.id == null} ? disabled : ''" data-bs-toggle="collapse"
+       href="#collapseExample" role="button" aria-expanded="false"
+       aria-controls="collapseExample">
+        Edit message
+    </a>
+
+    <div class="collapse mt-2" th:classappend="${message.text != null || message.tag != null} ? show : ''"
+         id="collapseExample">
+        <!--редактирование сообщения с файлом-->
+        <form th:action="@{/user-messages/{user}(user = ${#authentication.principal.id})}" method="post"
+              enctype="multipart/form-data" th:object="${message}">
+            <input type="text" class="form-control" name="text" placeholder="Введите сообщение"
+                   th:classappend="${#fields.hasErrors('text')} ? is-invalid : ''"
+                   th:value="${message.text != null} ? ${message.text} : ''"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">
+                Text Error
+            </div>
+            <input type="text" class="form-control" name="tag" placeholder="Введите тэг"
+                   th:classappend="${#fields.hasErrors('tag')} ? is-invalid : ''"
+                   th:value="${message.tag !=null} ? ${message.tag} : ''"/>
+            <div class=" invalid-feedback" th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}">
+                Tag Error
+            </div>
+            <input type="file" class="form-control" placeholder="Choose file">
+            <input type="hidden" name="id" th:value="${message.id != null} ? ${message.id} : ''">
+            <button class="btn btn-primary mt-2" type="submit">Save</button>
+        </form>
+    </div>
+
+    <div th:if="${messages.isEmpty()}"><!--если список сообщений пустой-->
+        <div>No messages</div>
+    </div>
+    <div th:if="${!messages.isEmpty()}"><!--если список сообщений не пустой-->
+        <div class="card-group row-cols-3" data-masonry='{"percentPosition": true }'> <!--упорядочиваем карточки-->
+            <div th:each="message : ${messages}">
+                <div class="card my-3 mx-3"><!--создаем карточки-->
+                    <div th:if="${message.filename} != null">
+                        <img th:src="@{/img/{filename}(filename = ${message.filename})}" class="card-img-top" alt="...">
+                        <!--в MvcConfig обрабатывается /img/{filename} и загружается-->
+                    </div>
+                    <div class="card-body m-2">
+                        <span th:text="${message.text}"></span><br>
+                        <i th:text="${message.tag}"></i>
+                        <div class="card-footer">
+                            <a class="btn btn-primary" th:if="${message.author.id == #authentication.principal.id}"
+                               th:href="@{/user-messages/{authorId}?message={messageId} (authorId = ${message.author.id}, messageId = ${message.id})}">Edit</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <div th:insert="fragments/common :: foot"></div>
 </body>
