@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/sweaterth
+    url: jdbc:postgresql://localhost:5432/sweatertest
     username: postgres
     password: postgres
   jpa:
@@ -22,8 +22,7 @@ spring:
 
 mail.debug: false
 
-upload.path: /home/soloveid/upload
+upload.path: /C:/D/JavaP/sweaterThymeleaf/upload
 recaptcha.secret: 6LdjI7chAAAAANxOtTwE8hAmIv0kq1DJGR3i8qoZ
 
-hostname: 127.0.0.1
-
+hostname: localhost:8080

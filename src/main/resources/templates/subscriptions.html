@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>Subscriptions</title>
+    <div th:replace="fragments/common :: myheader"></div>
+</head>
+<body>
+<div th:replace="fragments/common :: navbar"></div>
+<div class="container">
+    <div th:text="${user.username}"></div>
+    <div th:text="${type}"></div>
+    <ul class="list-group">
+        <div th:each="user : ${users}">
+            <li class="list-group-item"><!--список подписок-->
+                <a th:href="@{/user-messages/${id}(id = ${user.id})}" th:text="${user.username}">User name</a>
+            </li>
+        </div>
+    </ul>
+</div>
+<div th:insert="fragments/common :: foot"></div>
+</body>
+</html>
