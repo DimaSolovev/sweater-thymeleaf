@@ -10,9 +10,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
@@ -54,13 +57,29 @@ public class MainControllerTest {
     }
 
     @Test
-    public void filterMessageTest() throws Exception {
+    public void filterMessageTest() throws Exception {//тестируем поиск по фильтру
         this.mockMvc.perform(get("/main").param("filter", "my-tag"))
                 .andDo(print())
                 .andExpect(authenticated())
                 .andExpect(xpath("//div[@id='message-list']/div").nodeCount(2))
-                .andExpect(xpath("//div[@id='message-list']/div[@data-id=1]").exists())
-                .andExpect(xpath("//div[@id='message-list']/div[@data-id=3]").exists());
-        //добавляем каждой карточке data-th-id, [@data-id=3] - передаем параметры
+                .andExpect(xpath("//div[@id='message-list']/div/div[@id=1]").exists())
+                .andExpect(xpath("//div[@id='message-list']/div/div[@id=3]").exists());
+        //добавляем каждой карточке data-th-id, [@id=3] - передаем параметры
+    }
+
+    @Test
+    public void addMessageToListTest() throws Exception {
+        MockHttpServletRequestBuilder multipart = multipart("/main")
+                .file("file", "123".getBytes())//добавляем file, строку и переводим в байты
+                .param("text", "fifth")//поля класса message
+                .param("tag", "new")//поля класса message
+                .with(csrf());
+        this.mockMvc.perform(multipart)
+                .andDo(print())
+                .andExpect(authenticated())
+                .andExpect(xpath("//div[@id='message-list']/div").nodeCount(5))//к 4 тестовым добавляем пятое
+                .andExpect(xpath("//div[@id='message-list']/div/div[@id=10]").exists())//id 10 потому что нумерация новых элементов начинается с 10, sequence
+                .andExpect(xpath("//div[@id='message-list']/div/div[@id=10]/div/span").string("fifth"))
+                .andExpect(xpath("//div[@id='message-list']/div/div[@id=10]/div/i").string("new"));
     }
 }
