@@ -48,7 +48,7 @@
         <div>No messages</div>
     </div>
     <div th:if="${!page.isEmpty()}"><!--если список сообщений не пустой, заместо messages теперь page-->
-        <div th:replace="fragments/pageable :: pagination"></div>
+        <div th:replace="fragments/pageable :: pagination"></div><!--пагинация-->
         <!--        <ul class="pagination">-->
         <!--            <li class="page-item disabled">-->
         <!--                <a class="page-link" tabindex="-1">Страницы</a>-->
