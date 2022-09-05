@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@WithUserDetails("dru")//выполнять тест с авторизованым пользователем, на классе -перед каждым тестом,либо на методе
+//@WithUserDetails("dru")//выполнять тест с авторизованым пользователем, на классе -перед каждым тестом,либо на методе
 @ActiveProfiles("test")//для .yaml - application-test.yaml
 //@TestPropertySource("/application-test.yaml")// указываем пропертя для тестов, миграции применятся к тестовой бд
 class SweaterApplicationTests {
