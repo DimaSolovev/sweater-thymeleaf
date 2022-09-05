@@ -50,12 +50,12 @@ public class MainController {
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) {
         Page<Message> page;
-
         if (filter != null && !filter.isEmpty()) {
             page = messageRepository.findByTag(filter, pageable);
         } else {
             page = messageRepository.findAll(pageable);
         }
+        model.addAttribute("pagination", computePagination(page));
         model.addAttribute("url", "/main");
         model.addAttribute("page", page);
         model.addAttribute("filter", filter);
@@ -143,9 +143,9 @@ public class MainController {
         return "redirect:/user-messages/" + user.getId();
     }
 
-    static int[] computePagination(Page page){
-        Integer totalPages=page.getTotalPages();
-        if(totalPages>7) {
+    static int[] computePagination(Page page) {
+        Integer totalPages = page.getTotalPages();
+        if (totalPages > 7) {
             Integer pageNumber = page.getNumber() + 1;
             Integer[] head = pageNumber > 4 ? new Integer[]{1, -1} : new Integer[]{1, 2, 3};
             Integer[] tail = pageNumber < (totalPages - 3) ? new Integer[]{-1, totalPages} : new Integer[]{totalPages - 2, totalPages - 1, totalPages};
@@ -158,10 +158,10 @@ public class MainController {
             Collections.addAll(list, (pageNumber > 3 && pageNumber < totalPages - 2) ? new Integer[]{pageNumber} : new Integer[]{});
             Collections.addAll(list, bodyAfter);
             Collections.addAll(list, tail);
-            Integer[] arr= list.toArray(new Integer[0]);
-            int[] res=Arrays.stream(arr).mapToInt(Integer::intValue).toArray();
+            Integer[] arr = list.toArray(new Integer[0]);
+            int[] res = Arrays.stream(arr).mapToInt(Integer::intValue).toArray();
             return res;
-        }else{
+        } else {
             return IntStream.rangeClosed(1, totalPages).toArray();
         }
 
