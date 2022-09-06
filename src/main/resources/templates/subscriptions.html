@@ -12,8 +12,8 @@
     <div th:text="${type}"></div>
     <ul class="list-group">
         <div th:each="user : ${users}">
-            <li class="list-group-item"><!--список подписок-->
-                <a th:href="@{/user-messages/${id}(id = ${user.id})}" th:text="${user.username}">User name</a>
+            <li class="list-group-item col-6 mb-1"><!--список подписок-->
+                <a th:href="@{/user-messages/{id}(id = ${user.id})}" th:text="${user.username}">User name</a>
             </li>
         </div>
     </ul>
