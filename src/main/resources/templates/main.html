@@ -44,20 +44,19 @@
         </form>
     </div>
 
-    <div th:if="${page.isEmpty}"><!--если список сообщений пустой-->
+    <div th:if="${page.isEmpty()}"><!--если список сообщений пустой-->
         <div>No messages</div>
     </div>
-    <div th:if="${!page.isEmpty()}"><!--если список сообщений не пустой, заместо messages теперь page-->
-        <div th:replace="fragments/pageable :: pagination"></div><!--пагинация-->
 
+    <div th:replace="fragments/pageable :: pagination"></div><!--шаблон пагинации-->
+
+    <div th:if="${!page.isEmpty()}"><!--если список сообщений не пустой-->
         <div class="card-group row-cols-3" id="message-list" data-masonry='{"percentPosition": true }'>
             <!--упорядочиваем карточки-->
             <div th:each="message : ${page.content}">
-                <div class="card my-3 mx-3" data-th-id="${message.id}">
-                    <!--создаем карточки, data-th-id для тестов-->
+                <div class="card my-3 mx-3" data-th-id="${message.id}"><!--создаем карточки, data-th-id для тестов-->
                     <div th:if="${message.filename} != null">
-                        <img th:src="@{/img/{filename}(filename = ${message.filename})}" class="card-img-top"
-                             alt="...">
+                        <img th:src="@{/img/{filename}(filename = ${message.filename})}" class="card-img-top" alt="...">
                         <!--в MvcConfig обрабатывается /img/{filename} и загружается-->
                     </div>
                     <div class="card-body m-2">
@@ -66,15 +65,13 @@
                         <div class="card-footer">
                             <a class="link-primary" th:href="@{/user-messages/{id} (id = ${message.author.id})}"
                                th:text="${message.author.username}">My messages</a>
-                            <a class="btn btn-primary"
-                               th:if="${message.author.id == #authentication.principal.id}"
+                            <a class="btn btn-primary" th:if="${message.author.id == #authentication.principal.id}"
                                th:href="@{/user-messages/{authorId}?message={messageId} (authorId = ${message.author.id}, messageId = ${message.id})}">Edit</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

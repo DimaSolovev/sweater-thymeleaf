@@ -62,7 +62,6 @@ public class MainController {
         model.addAttribute("filter", filter);
         return "main";
     }
-
     @PostMapping("/main")
     public String addMessage(
             @AuthenticationPrincipal User user,

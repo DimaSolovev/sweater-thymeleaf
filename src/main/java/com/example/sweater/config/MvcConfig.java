@@ -34,7 +34,8 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");//уст маппинг на login вместо стандартного
     }
-    @Override
+
+    @Override//чтобы номер page начинался с 1
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
         resolver.setOneIndexedParameters(true);
