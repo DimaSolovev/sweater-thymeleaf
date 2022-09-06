@@ -55,8 +55,8 @@ public class MainController {
         } else {
             page = messageRepository.findAll(pageable);
         }
-        model.addAttribute("elements", new Integer[]{5, 10, 25, 50});
         model.addAttribute("pagination", computePagination(page));
+        model.addAttribute("elements", new int[]{2, 5, 10, 25, 50});
         model.addAttribute("url", "/main");
         model.addAttribute("page", page);
         model.addAttribute("filter", filter);
