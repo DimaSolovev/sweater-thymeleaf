@@ -39,7 +39,7 @@
             <div class=" invalid-feedback" th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}">
                 Tag Error
             </div>
-            <input type="file" class="form-control" placeholder="Choose file"/>
+            <input type="file" class="form-control" placeholder="Choose file" name="file"/>
             <button class="btn btn-primary mt-2" type="submit">Save</button>
         </form>
     </div>

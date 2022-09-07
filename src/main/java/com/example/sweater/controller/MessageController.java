@@ -3,6 +3,7 @@ package com.example.sweater.controller;
 import com.example.sweater.domain.Message;
 import com.example.sweater.domain.User;
 import com.example.sweater.repos.MessageRepository;
+import com.example.sweater.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -25,10 +26,12 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping
-public class MainController {
+public class MessageController {
 
     @Autowired
     private MessageRepository messageRepository;
+    @Autowired
+    private MessageService messageService;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -49,12 +52,7 @@ public class MainController {
             Model model,//сортируем по id, показываем сообщения созданные последними
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        Page<Message> page;
-        if (filter != null && !filter.isEmpty()) {
-            page = messageRepository.findByTag(filter, pageable);
-        } else {
-            page = messageRepository.findAll(pageable);
-        }
+        Page<Message> page = messageService.messageList(pageable, filter);
         model.addAttribute("pagination", computePagination(page));
         model.addAttribute("elements", new int[]{2, 5, 10, 25, 50});
         model.addAttribute("url", "/main");
@@ -62,13 +60,15 @@ public class MainController {
         model.addAttribute("filter", filter);
         return "main";
     }
+
     @PostMapping("/main")
     public String addMessage(
             @AuthenticationPrincipal User user,
             @Valid Message message,
             BindingResult bindingResult,
             Model model,
-            @RequestParam(value = "file", required = false) MultipartFile file
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) throws IOException {
         message.setAuthor(user);
         if (bindingResult.hasErrors()) {
@@ -78,9 +78,14 @@ public class MainController {
             model.addAttribute("message", new Message());
             messageRepository.save(message);
         }
-        Iterable<Message> messages = messageRepository.findAll();
-        model.addAttribute("messages", messages);
-        return "main";
+        Page<Message> page = messageService.messageList(pageable, null);
+//        Iterable<Message> messages = messageRepository.findAll();
+//        model.addAttribute("messages", messages);
+        model.addAttribute("page", page);
+        model.addAttribute("pagination", computePagination(page));
+        model.addAttribute("elements", new int[]{2, 5, 10, 25, 50});
+        model.addAttribute("url", "/main");
+        return "redirect:/main";
     }
 
     private void saveFile(@Valid Message message, @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
@@ -104,7 +109,8 @@ public class MainController {
             @AuthenticationPrincipal User currentUser,
             @PathVariable User user,//если имена отличаются то @PathVariable(name = "user") User user
             Model model,
-            @RequestParam(required = false) Message message
+            @RequestParam(required = false) Message message,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) {
         Set<Message> messages = user.getMessages();
         model.addAttribute("userChannel", user);
@@ -113,6 +119,7 @@ public class MainController {
         model.addAttribute("messages", messages);
         model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
         model.addAttribute("isCurrentUser", currentUser.equals(user));
+        model.addAttribute("elements", new int[]{2, 5, 10, 25, 50});
         if (message == null) {
             model.addAttribute("message", new Message());
         } else {

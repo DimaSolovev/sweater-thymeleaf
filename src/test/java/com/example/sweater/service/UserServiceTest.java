@@ -52,9 +52,9 @@ class UserServiceTest {
 
         user.setUsername("John");
 
-        Mockito.doReturn(new User())
-                .when(userRepo)
-                .findByUsername("John");
+        Mockito.doReturn(new User())//возвращать new User
+                .when(userRepo)//когда у userRepo
+                .findByUsername("John");//вызывается findByUsername с аргументом John
 
         boolean isUserCreated = userService.addUser(user);
 
