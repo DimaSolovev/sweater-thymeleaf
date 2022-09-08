@@ -62,11 +62,19 @@
                     <div class="card-body m-2">
                         <span th:text="${message.text}"></span><br/>
                         <i th:text="${message.tag}"></i>
-                        <div class="card-footer">
-                            <a class="link-primary" th:href="@{/user-messages/{id} (id = ${message.author.id})}"
-                               th:text="${message.author.username}">My messages</a>
-                            <a class="btn btn-primary" th:if="${message.author.id == #authentication.principal.id}"
-                               th:href="@{/user-messages/{authorId}?message={messageId} (authorId = ${message.author.id}, messageId = ${message.id})}">Edit</a>
+                        <div class="card-footer container">
+                            <div class="row">
+                                <a class="col align-self-center"
+                                   th:href="@{/user-messages/{id} (id = ${message.author.id})}"
+                                   th:text="${message.author.username}">My messages</a>
+                                <a class="col align-self-center" href="#">
+                                    <i class="far fa-heart"></i><!--пустое сердце-->
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <a class="col btn btn-primary"
+                                   th:if="${message.author.id == #authentication.principal.id}"
+                                   th:href="@{/user-messages/{authorId}?message={messageId} (authorId = ${message.author.id}, messageId = ${message.id})}">Edit</a>
+                            </div>
                         </div>
                     </div>
                 </div>

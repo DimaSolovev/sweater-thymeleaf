@@ -69,13 +69,16 @@
         </form>
     </div>
 
-    <div th:if="${messages.isEmpty()}"><!--если список сообщений пустой-->
+    <div th:if="${page.isEmpty()}"><!--если список сообщений пустой-->
         <div>No messages</div>
     </div>
-    <div th:if="${!messages.isEmpty()}"><!--если список сообщений не пустой-->
+
+    <div th:replace="fragments/pageable :: pagination"></div><!--шаблон пагинации-->
+
+    <div th:if="${!page.isEmpty()}"><!--если список сообщений не пустой-->
         <div class="card-group row-cols-3" data-masonry='{"percentPosition": true }'> <!--упорядочиваем карточки-->
-            <div th:each="message : ${messages}">
-                <div class="card my-3 mx-3"><!--создаем карточки-->
+            <div th:each="message : ${page.content}">
+                <div class="card my-3 mx-3" data-th-id="${message.id}"><!--создаем карточки, data-th-id для тестов-->
                     <div th:if="${message.filename} != null">
                         <img th:src="@{/img/{filename}(filename = ${message.filename})}" class="card-img-top" alt="...">
                         <!--в MvcConfig обрабатывается /img/{filename} и загружается-->

@@ -104,21 +104,23 @@ public class MessageController {
     }
 
     //<a class="nav-link" th:href="@{/user-messages/{id} (id = ${#authentication.principal.id})}">My messages</a>
-    @GetMapping("/user-messages/{user}")//spring получит из id юзера
+    @GetMapping("/user-messages/{author}")//spring получит из id юзера
     public String userMessages(
             @AuthenticationPrincipal User currentUser,
-            @PathVariable User user,//если имена отличаются то @PathVariable(name = "user") User user
+            @PathVariable User author,//если имена отличаются то @PathVariable(name = "user") User user
             Model model,
             @RequestParam(required = false) Message message,
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        Set<Message> messages = user.getMessages();
-        model.addAttribute("userChannel", user);
-        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
-        model.addAttribute("subscribersCount", user.getSubscribers().size());
-        model.addAttribute("messages", messages);
-        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
-        model.addAttribute("isCurrentUser", currentUser.equals(user));
+        Page<Message> page = messageService.messageListForUser(pageable, currentUser, author);
+        model.addAttribute("pagination", computePagination(page));
+        model.addAttribute("url", "/user-messages/" + author.getId());
+        model.addAttribute("userChannel", author);
+        model.addAttribute("subscriptionsCount", author.getSubscriptions().size());
+        model.addAttribute("subscribersCount", author.getSubscribers().size());
+        model.addAttribute("page", page);
+        model.addAttribute("isSubscriber", author.getSubscribers().contains(currentUser));
+        model.addAttribute("isCurrentUser", currentUser.equals(author));
         model.addAttribute("elements", new int[]{2, 5, 10, 25, 50});
         if (message == null) {
             model.addAttribute("message", new Message());
