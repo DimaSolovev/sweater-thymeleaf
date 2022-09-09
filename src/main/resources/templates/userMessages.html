@@ -40,7 +40,8 @@
             </div>
         </div>
     </div>
-    <a class="btn btn-primary ms-3 mt-3" th:classappend="${message.id == null} ? disabled : ''" data-bs-toggle="collapse"
+    <a class="btn btn-primary ms-3 mt-3" th:classappend="${message.id == null} ? disabled : ''"
+       data-bs-toggle="collapse"
        href="#collapseExample" role="button" aria-expanded="false"
        aria-controls="collapseExample">
         Edit message
@@ -86,9 +87,18 @@
                     <div class="card-body m-2">
                         <span th:text="${message.text}"></span><br>
                         <i th:text="${message.tag}"></i>
-                        <div class="card-footer">
-                            <a class="btn btn-primary" th:if="${message.author.id == #authentication.principal.id}"
-                               th:href="@{/user-messages/{authorId}?message={messageId} (authorId = ${message.author.id}, messageId = ${message.id})}">Edit</a>
+                        <div class="card-footer container">
+                            <div class="row">
+                                <a class="col btn btn-primary align-self-center"
+                                   th:if="${message.author.id == #authentication.principal.id}"
+                                   th:href="@{/user-messages/{authorId}?message={messageId} (authorId = ${message.author.id}, messageId = ${message.id})}">Edit</a>
+                                <a class="col align-self-center"
+                                   th:href="@{/messages/{messageId}/like(messageId = ${message.id})}">
+                                    <i th:if="${message.meLiked}" class="fas fa-heart"></i><!--пустое сердце-->
+                                    <i th:unless="${message.meLiked}" class="far fa-heart"></i>
+                                    <i th:text="${message.likes}"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

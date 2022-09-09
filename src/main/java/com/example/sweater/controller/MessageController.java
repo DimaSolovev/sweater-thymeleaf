@@ -2,6 +2,7 @@ package com.example.sweater.controller;
 
 import com.example.sweater.domain.Message;
 import com.example.sweater.domain.User;
+import com.example.sweater.domain.dto.MessageDto;
 import com.example.sweater.repos.MessageRepository;
 import com.example.sweater.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -50,9 +54,10 @@ public class MessageController {
     public String main(
             @RequestParam(required = false, defaultValue = "") String filter,
             Model model,//сортируем по id, показываем сообщения созданные последними
-            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+            @AuthenticationPrincipal User user
     ) {
-        Page<Message> page = messageService.messageList(pageable, filter);
+        Page<MessageDto> page = messageService.messageList(pageable, filter, user);
         model.addAttribute("pagination", computePagination(page));
         model.addAttribute("elements", new int[]{2, 5, 10, 25, 50});
         model.addAttribute("url", "/main");
@@ -78,7 +83,7 @@ public class MessageController {
             model.addAttribute("message", new Message());
             messageRepository.save(message);
         }
-        Page<Message> page = messageService.messageList(pageable, null);
+        Page<MessageDto> page = messageService.messageList(pageable, null, user);
 //        Iterable<Message> messages = messageRepository.findAll();
 //        model.addAttribute("messages", messages);
         model.addAttribute("page", page);
@@ -112,7 +117,7 @@ public class MessageController {
             @RequestParam(required = false) Message message,
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        Page<Message> page = messageService.messageListForUser(pageable, currentUser, author);
+        Page<MessageDto> page = messageService.messageListForUser(pageable, currentUser, author);
         model.addAttribute("pagination", computePagination(page));
         model.addAttribute("url", "/user-messages/" + author.getId());
         model.addAttribute("userChannel", author);
@@ -150,6 +155,27 @@ public class MessageController {
             messageRepository.save(message);
         }
         return "redirect:/user-messages/" + user.getId();
+    }
+
+    @GetMapping("/messages/{message}/like")//контроллер лайков
+    public String like(
+            @AuthenticationPrincipal User currentUser,
+            @PathVariable Message message,
+            RedirectAttributes redirectAttributes,//с его помощью передадим параметры
+            @RequestHeader(required = false) String referer//с его помощью понимаем с какой страницы пришли
+    ) {
+        Set<User> likes = message.getLikes();
+        if (likes.contains(currentUser)) {
+            likes.remove(currentUser);
+        } else {
+            likes.add(currentUser);
+        }
+        UriComponents components = UriComponentsBuilder.fromHttpUrl(referer).build();
+        components.getQueryParams()
+                .entrySet()
+                .forEach(pair -> redirectAttributes.addAttribute(pair.getKey(), pair.getValue()));
+
+        return "redirect:" + components.getPath();
     }
 
     static int[] computePagination(Page page) {
