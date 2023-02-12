@@ -2,6 +2,9 @@
   Spring boot app with thymleaf pages, authentiction and authorization . You can publice messages, add likes, subscribe other users <br>
 and see there messages, filter messages by tag. Admin has admin-console and able to edit other users. Navbar and pagination allows <br> 
 quickly switch menu items.  <br><br>
+  Navigate to the root of the project via command line and execute the command: 
+  -mvn spring-boot:run 
+  -java -jar ./target/sweater-0.0.1-SNAPSHOT.jar ./src/main/com/example/sweater/SweaterApplication
 Technologies:<br>
 - spring-web, security, mail, jpa
 - graphql api
