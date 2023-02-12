@@ -1,0 +1,7 @@
+input UserInput{
+    active: Boolean!
+    email: String!
+    password: String!
+    username: String!
+    roles: [Role]!
+}

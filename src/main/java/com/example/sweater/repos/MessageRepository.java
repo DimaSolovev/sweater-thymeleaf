@@ -10,10 +10,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import java.util.List;
 
 @Repository
 public interface MessageRepository extends CrudRepository<Message, Long> {
+
     @Query("select new com.example.sweater.domain.dto.MessageDto(" +
             "   m, " +
             "   count(ml), " +
@@ -22,6 +23,7 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
             "from Message m left join m.likes ml " +
             "group by m")
     Page<MessageDto> findAll(Pageable pageable, @Param("user") User user);
+
     @Query("select new com.example.sweater.domain.dto.MessageDto(" +
             "   m, " +
             "   count(ml), " +
@@ -31,6 +33,7 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
             "where m.tag = :tag " +
             "group by m")
     Page<MessageDto> findByTag(@Param("tag") String tag, Pageable pageable, @Param("user") User user);
+
     @Query("select new com.example.sweater.domain.dto.MessageDto(" +
             "   m, " +
             "   count(ml), " +

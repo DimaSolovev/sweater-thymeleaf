@@ -1,6 +1,7 @@
 package com.example.sweater.domain;
 
 import com.example.sweater.domain.util.MessageHelper;
+import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;

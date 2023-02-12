@@ -84,8 +84,6 @@ public class MessageController {
             messageRepository.save(message);
         }
         Page<MessageDto> page = messageService.messageList(pageable, null, user);
-//        Iterable<Message> messages = messageRepository.findAll();
-//        model.addAttribute("messages", messages);
         model.addAttribute("page", page);
         model.addAttribute("pagination", computePagination(page));
         model.addAttribute("elements", new int[]{2, 5, 10, 25, 50});

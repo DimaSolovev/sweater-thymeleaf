@@ -1,0 +1,5 @@
+input MessageInput {
+    tag:String!
+    text: String!
+    authorId: Int!
+}

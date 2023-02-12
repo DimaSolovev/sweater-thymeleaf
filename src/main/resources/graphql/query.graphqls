@@ -1,0 +1,8 @@
+#all queries
+type Query {
+    users : [User]
+    userById(id: Int) : User
+
+    messages : [Message]
+    messageById(id: Int): Message
+}

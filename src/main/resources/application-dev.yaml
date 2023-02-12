@@ -20,6 +20,12 @@ spring:
     port: 465
     protocol: smtps
 
+graphql:
+  altair:
+    enabled: true
+  graphiql:
+    enabled: true
+
 mail.debug: false
 
 upload.path: /C:/D/JavaP/sweaterThymeleaf/upload

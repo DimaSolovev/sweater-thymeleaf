@@ -1,0 +1,10 @@
+#all mutations queries
+type Mutation {
+    addUser(input: UserInput!): User!
+    deleteUser(id: Int!): Boolean!
+    updateUser(id: Int!, userInput: UserInput): User!
+
+    addMessage(input: MessageInput!): Message!
+    deleteMessage(id: Int!): Boolean!
+    updateMessage(id: Int!, messageInput: MessageInput): Message!
+}
