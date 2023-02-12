@@ -67,7 +67,8 @@
                                 <a class="col align-self-center"
                                    th:href="@{/user-messages/{id} (id = ${message.author.id})}"
                                    th:text="${message.author.username}">My messages</a>
-                                <a class="col align-self-center" th:href="@{/messages/{messageId}/like(messageId = ${message.id})}">
+                                <a class="col align-self-center"
+                                   th:href="@{/messages/{messageId}/like(messageId = ${message.id})}">
                                     <i th:if="${message.meLiked}" class="fas fa-heart"></i><!--пустое сердце-->
                                     <i th:unless="${message.meLiked}" class="far fa-heart"></i>
                                     <i th:text="${message.likes}"></i>
