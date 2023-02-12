@@ -19,6 +19,9 @@ spring:
     password: neCg93UGKb6k5cmqqENC
     port: 465
     protocol: smtps
+    properties:
+      mail:
+        debug: true
 
 graphql:
   altair:

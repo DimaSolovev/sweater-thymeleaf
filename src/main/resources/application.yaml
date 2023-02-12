@@ -18,9 +18,6 @@ spring:
     password: neCg93UGKb6k5cmqqENC
     port: 465
     protocol: smtps
-server:
-  http2:
-    enabled: true
 
 graphql:
   altair:
