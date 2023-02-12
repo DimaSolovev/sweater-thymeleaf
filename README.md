@@ -8,7 +8,7 @@ quickly switch menu items.  <br><br>
 Technologies:<br>
 - spring-web, security, mail, jpa
 - graphql api
-- bootstrap: available at http://localhost:8080/graphiql and http://localhost:8080/altair
+- bootstrap: available at localhost:8080/graphiql and localhost:8080/altair
 - thymeleaf
 - postgres
 - turbolinks
