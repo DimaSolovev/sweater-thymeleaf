@@ -18,6 +18,20 @@ spring:
     password: neCg93UGKb6k5cmqqENC
     port: 465
     protocol: smtps
+    properties:
+      mail:
+        debug: true
+        transport:
+          protocol: smtps
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connection-timeout: 5000
+          timeout: 3000
+          write timeout: 5000
 
 graphql:
   altair:
