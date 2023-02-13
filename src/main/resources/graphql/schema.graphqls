@@ -1,0 +1,57 @@
+#entity for graphql get requests for user
+type User {
+    id: Int!
+    username: String!
+    password: String!
+    active: Boolean!
+    email: String!
+    activationCode: String!
+    roles: [Role]!
+    messages: [Message]
+}
+#enum for user roles
+enum Role{
+    USER
+    ADMIN
+}
+#entity for graphql get requests for message
+type Message {
+    id: Int!
+    text: String!
+    tag: String!
+    author: User!
+    filename: String
+}
+
+input MessageInput {
+    tag:String!
+    text: String!
+    authorId: Int!
+}
+
+input UserInput{
+    active: Boolean!
+    email: String!
+    password: String!
+    username: String!
+    roles: [Role]!
+}
+#all queries
+type Query {
+    users : [User]
+    userById(id: Int) : User
+
+    messages : [Message]
+    messageById(id: Int): Message
+}
+
+#all mutations queries (post, update, delete)
+type Mutation {
+    addUser(input: UserInput!): User!
+    deleteUser(id: Int!): Boolean!
+    updateUser(id: Int!, userInput: UserInput): User!
+
+    addMessage(input: MessageInput!): Message!
+    deleteMessage(id: Int!): Boolean!
+    updateMessage(id: Int!, messageInput: MessageInput): Message!
+}

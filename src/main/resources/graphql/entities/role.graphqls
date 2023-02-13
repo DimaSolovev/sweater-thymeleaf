@@ -1,5 +1,0 @@
-#enum for user roles
-enum Role{
-    USER
-    ADMIN
-}

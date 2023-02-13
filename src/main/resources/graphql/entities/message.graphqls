@@ -1,8 +1,0 @@
-#entity for graphql get requests for message
-type Message {
-    id: Int!
-    text: String!
-    tag: String!
-    author: User!
-    filename: String
-}

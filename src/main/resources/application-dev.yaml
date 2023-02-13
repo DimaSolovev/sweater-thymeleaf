@@ -26,6 +26,8 @@ spring:
 graphql:
   altair:
     enabled: true
+  annotations.base-package: graphql.kickstart.spring.boot.graphql.annotations
+  schema-strategy: annotations
   graphiql:
     enabled: true
 

@@ -1,6 +1,0 @@
-input MessageInput {
-    tag:String!
-    text: String!
-    authorId: Int!
-}
-#сущность message для запросов на добавление
