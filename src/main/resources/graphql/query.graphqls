@@ -1,4 +1,4 @@
-#all queries
+#all queries все запросы на получение
 type Query {
     users : [User]
     userById(id: Int) : User

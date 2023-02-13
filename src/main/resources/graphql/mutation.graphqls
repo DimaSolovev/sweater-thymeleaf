@@ -1,4 +1,4 @@
-#all mutations queries (post, update, delete)
+#all mutations queries (post, update, delete) все запросы на изменение
 type Mutation {
     addUser(input: UserInput!): User!
     deleteUser(id: Int!): Boolean!

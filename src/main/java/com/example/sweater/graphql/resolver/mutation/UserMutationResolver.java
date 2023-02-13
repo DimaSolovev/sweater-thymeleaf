@@ -17,7 +17,7 @@ public class UserMutationResolver implements GraphQLMutationResolver {
     //обрабатывает запросы graphql для добавления и удаления user
     private final UserRepo userRepo;
 
-    public User addUser(UserInput userInput) {
+    public User addUser(UserInput userInput) {//добавить user
         log.info("Save user with email {}", userInput.getEmail());
         User user = new User();
         user.setActive(userInput.getActive());
@@ -28,7 +28,7 @@ public class UserMutationResolver implements GraphQLMutationResolver {
         return userRepo.save(user);
     }
 
-    public Boolean deleteUser(Long id) {
+    public Boolean deleteUser(Long id) {//удалить user
         log.info("Delete user with id {}", id);
         User user = userRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id" + id));
@@ -36,7 +36,7 @@ public class UserMutationResolver implements GraphQLMutationResolver {
         return true;
     }
 
-    public User updateUser(Long id, UserInput userInput) {
+    public User updateUser(Long id, UserInput userInput) {//изменить user
         log.info("Update user with id {}", id);
         User user = userRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Message not found with id" + id));

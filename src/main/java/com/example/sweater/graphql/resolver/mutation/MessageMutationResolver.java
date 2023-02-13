@@ -18,7 +18,7 @@ public class MessageMutationResolver implements GraphQLMutationResolver {
 
     private final UserRepo userRepo;
 
-    public Message addMessage(MessageInput messageInput) {
+    public Message addMessage(MessageInput messageInput) {//добавить сообщение
         log.info("Save message with id {}, text {}", messageInput.getId(), messageInput.getText());
         return messageRepository.save(new Message(
                 messageInput.getText(),
@@ -27,7 +27,7 @@ public class MessageMutationResolver implements GraphQLMutationResolver {
         ));
     }
 
-    public Boolean deleteMessage(Long id) {
+    public Boolean deleteMessage(Long id) {//удалить сообщение
         log.info("Delete message with id {}", id);
         Message message = messageRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Message not found with id" + id));
@@ -35,7 +35,7 @@ public class MessageMutationResolver implements GraphQLMutationResolver {
         return true;
     }
 
-    public Message updateMessage(Long id, MessageInput messageInput) {
+    public Message updateMessage(Long id, MessageInput messageInput) {//изменить message
         log.info("Update message with id {}", id);
         Message message = messageRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Message not found with id" + id));

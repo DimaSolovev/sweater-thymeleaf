@@ -3,3 +3,4 @@ input MessageInput {
     text: String!
     authorId: Int!
 }
+#сущность message для запросов на добавление
