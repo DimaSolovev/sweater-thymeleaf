@@ -22,13 +22,13 @@ type Message {
     author: User!
     filename: String
 }
-
+#entity for mutation graphql requests for message
 input MessageInput {
     tag:String!
     text: String!
     authorId: Int!
 }
-
+#entity for mutation graphql requests for user
 input UserInput{
     active: Boolean!
     email: String!
@@ -36,7 +36,7 @@ input UserInput{
     username: String!
     roles: [Role]!
 }
-#all queries
+#all queries (getAll and getById)
 type Query {
     users : [User]
     userById(id: Int) : User

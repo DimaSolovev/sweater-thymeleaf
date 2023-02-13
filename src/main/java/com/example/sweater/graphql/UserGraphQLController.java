@@ -23,7 +23,7 @@ public class UserGraphQLController {
 
     @QueryMapping
     User userById(@Argument Long id) {
-        return userRepo.findUserById(id);
+        return userRepo.findById(id).orElseThrow(() -> new RuntimeException("data not found"));
     }
 
     @MutationMapping
