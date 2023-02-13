@@ -19,6 +19,6 @@ public class UserResolver implements GraphQLQueryResolver {
     }
 
     public User userById(Long id) {
-        return userRepo.findUserById(id);
+        return userRepo.findById(id).orElseThrow(() -> new RuntimeException("data not found"));
     }
 }
