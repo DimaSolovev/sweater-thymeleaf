@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
-
+//сервис для работы с user
     private final UserRepo userRepo;
 
     private final MailSender mailSender;

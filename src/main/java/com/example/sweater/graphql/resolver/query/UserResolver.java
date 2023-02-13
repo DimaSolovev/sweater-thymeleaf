@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class UserResolver implements GraphQLQueryResolver {
-
+    //обрабатывает запросы graphql на получение user
     private final UserRepo userRepo;
 
     public List<User> users() {

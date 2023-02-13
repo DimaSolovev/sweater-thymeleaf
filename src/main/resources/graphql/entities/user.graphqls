@@ -1,3 +1,4 @@
+#entity for graphql get requests for user
 type User {
     id: Int!
     username: String!

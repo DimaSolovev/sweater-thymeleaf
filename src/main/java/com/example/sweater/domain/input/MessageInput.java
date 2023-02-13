@@ -2,7 +2,7 @@ package com.example.sweater.domain.input;
 
 import lombok.Data;
 
-@Data
+@Data//сущность для input в graphql
 public class MessageInput {
 
     private Long id;

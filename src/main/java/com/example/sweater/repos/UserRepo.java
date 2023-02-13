@@ -4,7 +4,12 @@ import com.example.sweater.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface UserRepo extends JpaRepository<User, Long> {
+
+    @Query("SELECT u FROM  User u JOIN FETCH u.messages")
+    List<User> findAll();
 
     @Query("SELECT u FROM  User u JOIN FETCH u.messages WHERE u.id=?1")
     User findUserById(Long id);

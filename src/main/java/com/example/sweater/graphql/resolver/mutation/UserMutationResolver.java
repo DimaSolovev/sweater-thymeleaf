@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class UserMutationResolver implements GraphQLMutationResolver {
-
+    //обрабатывает запросы graphql для добавления и удаления user
     private final UserRepo userRepo;
 
     public User addUser(UserInput userInput) {

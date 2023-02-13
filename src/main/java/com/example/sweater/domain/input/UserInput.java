@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.util.Set;
 
-@Data
+@Data//сущность для input в graphql
 public class UserInput {
 
     private Boolean active;

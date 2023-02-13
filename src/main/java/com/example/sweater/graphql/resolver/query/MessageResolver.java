@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class MessageResolver implements GraphQLQueryResolver {
-
+//обрабатывает запросы graphql на получение massage
     private final MessageRepository messageRepository;
 
     public Iterable<Message> messages() {

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class MessageMutationResolver implements GraphQLMutationResolver {
-
+//обрабатывает запросы graphql для добавления и удаления сообщений
     private final MessageRepository messageRepository;
 
     private final UserRepo userRepo;
