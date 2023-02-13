@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 @Slf4j
@@ -18,6 +19,16 @@ public class MessageGraphQLController {
     private final MessageRepository messageRepository;
 
     private final UserRepo userRepo;
+
+    @QueryMapping
+    public Iterable<Message> messages() {
+        return messageRepository.findAll();
+    }
+
+    @QueryMapping
+    public Message messageById(Long id) {
+        return messageRepository.findById(id).orElseThrow(() -> new RuntimeException("data not found"));
+    }
 
     @MutationMapping
     public Message addMessage(@Argument MessageInput messageInput) {
