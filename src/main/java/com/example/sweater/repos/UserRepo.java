@@ -8,10 +8,8 @@ import java.util.List;
 
 public interface UserRepo extends JpaRepository<User, Long> {
 
-    @Query("SELECT u FROM  User u JOIN FETCH u.messages")
     List<User> findAll();
 
-    @Query("SELECT u FROM  User u JOIN FETCH u.messages WHERE u.id=?1")
     User findUserById(Long id);
 
     User findByUsername(String username);

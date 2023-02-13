@@ -5,7 +5,7 @@ type User {
     password: String!
     active: Boolean!
     email: String!
-    activationCode: String!
+    activationCode: String
     roles: [Role]!
     messages: [Message]
 }

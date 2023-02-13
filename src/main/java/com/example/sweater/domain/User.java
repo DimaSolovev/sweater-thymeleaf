@@ -1,5 +1,7 @@
 package com.example.sweater.domain;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -49,6 +51,7 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     private Set<Message> messages;
 
     @ManyToMany//список подписчиков
