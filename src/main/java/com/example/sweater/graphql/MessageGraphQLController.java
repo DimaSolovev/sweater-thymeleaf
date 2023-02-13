@@ -15,22 +15,22 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequiredArgsConstructor
 public class MessageGraphQLController {
-
+//обрабатывает запросы graphql для message
     private final MessageRepository messageRepository;
 
     private final UserRepo userRepo;
 
-    @QueryMapping
+    @QueryMapping//получить все message
     public Iterable<Message> messages() {
         return messageRepository.findAll();
     }
 
-    @QueryMapping
+    @QueryMapping//получить message по id
     public Message messageById(Long id) {
         return messageRepository.findById(id).orElseThrow(() -> new RuntimeException("data not found"));
     }
 
-    @MutationMapping
+    @MutationMapping//добавить message
     public Message addMessage(@Argument MessageInput messageInput) {
         log.info("Save message with id {}, text {}", messageInput.getId(), messageInput.getText());
         return messageRepository.save(new Message(
@@ -40,7 +40,7 @@ public class MessageGraphQLController {
         ));
     }
 
-    @MutationMapping
+    @MutationMapping//удалить message
     public Boolean deleteMessage(@Argument Long id) {
         log.info("Delete message with id {}", id);
         Message message = messageRepository.findById(id)
@@ -49,7 +49,7 @@ public class MessageGraphQLController {
         return true;
     }
 
-    @MutationMapping
+    @MutationMapping//изменить message
     public Message updateMessage(@Argument Long id,@Argument MessageInput messageInput) {
         log.info("Update message with id {}", id);
         Message message = messageRepository.findById(id)

@@ -22,14 +22,9 @@ spring:
     properties:
       mail:
         debug: true
-
-graphql:
-  altair:
-    enabled: true
-  annotations.base-package: graphql.kickstart.spring.boot.graphql.annotations
-  schema-strategy: annotations
-  graphiql:
-    enabled: true
+  graphql:
+    graphiql:
+      enabled: true
 
 mail.debug: false
 

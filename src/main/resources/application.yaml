@@ -32,12 +32,9 @@ spring:
           connection-timeout: 5000
           timeout: 3000
           write timeout: 5000
-
-graphql:
-  altair:
-    enabled: true
-  graphiql:
-    enabled: true
+  graphql:
+    graphiql:
+      enabled: true
 
 mail.debug: false
 
